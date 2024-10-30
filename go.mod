@@ -1,4 +1,4 @@
-module github.com/tchenbz/AWT_Quiz3
+module github.com/RayMC17/AWT_Quiz3
 
 go 1.22.2
 
