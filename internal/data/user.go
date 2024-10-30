@@ -6,7 +6,7 @@ import (
 	"database/sql"
 	"errors"
 	"time"
-	"github.com/RayMC17/AWT_Quiz3/internal/validator"
+	"github.com/RayMC17/AWT_Test1/internal/validator"
 )
 
 type User struct {

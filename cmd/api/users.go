@@ -4,8 +4,8 @@ package main
 import (
 	"net/http"
 	"fmt"
-	"github.com/RayMC17/AWT_Quiz3/internal/data"
-	"github.com/RayMC17/AWT_Quiz3/internal/validator"
+	"github.com/RayMC17/AWT_Test1/internal/data"
+	"github.com/RayMC17/AWT_Test1/internal/validator"
 )
 
 func (a *applicationDependencies) createUserHandler(w http.ResponseWriter, r *http.Request) {

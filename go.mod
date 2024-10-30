@@ -1,4 +1,4 @@
-module github.com/RayMC17/AWT_Quiz3
+module github.com/RayMC17/AWT_Test1
 
 go 1.22.2
 

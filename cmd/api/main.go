@@ -11,7 +11,7 @@ import (
 	"time"
 
 	_ "github.com/lib/pq"
-	"github.com/RayMC17/AWT_Quiz3/internal/data"
+	"github.com/RayMC17/AWT_Test1/internal/data"
 )
 
 const appVersion = "1.0.0"
