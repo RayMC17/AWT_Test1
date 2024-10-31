@@ -1,0 +1,21 @@
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    category VARCHAR(50),
+    image_url VARCHAR(255),
+    average_rating FLOAT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    content TEXT NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    helpful_count INT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

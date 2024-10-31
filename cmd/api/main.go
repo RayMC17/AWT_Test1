@@ -10,8 +10,8 @@ import (
 	"os"
 	"time"
 
-	_ "github.com/lib/pq"
 	"github.com/RayMC17/AWT_Test1/internal/data"
+	_ "github.com/lib/pq"
 )
 
 const appVersion = "1.0.0"
@@ -25,9 +25,11 @@ type serverConfig struct {
 }
 
 type applicationDependencies struct {
-	config     serverConfig
-	logger     *slog.Logger
-	userModel  data.UserModel
+	config       serverConfig
+	logger       *slog.Logger
+	//userModel    data.UserModel
+	productModel data.ProductModel // Added productModel
+	reviewModel  data.ReviewModel  // Added reviewModel
 }
 
 func main() {
@@ -35,7 +37,8 @@ func main() {
 
 	flag.IntVar(&settings.port, "port", 4000, "Server port")
 	flag.StringVar(&settings.environment, "env", "development", "Environment (development|staging|production)")
-	flag.StringVar(&settings.db.dsn, "db-dsn", os.Getenv("QUIZ3_DB_DSN"), "PostgreSQL DSN")
+	flag.StringVar(&settings.db.dsn, "db-dsn", os.Getenv("TEST1_DB_DSN"), "PostgreSQL DSN")
+	// flag.StringVar(&settings.db.dsn, "db-dsn", "postgres://test1:Test1@localhost/test1", "PostgresSQL DSN")
 	flag.Parse()
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
@@ -49,9 +52,11 @@ func main() {
 	logger.Info("database connection pool established")
 
 	appInstance := &applicationDependencies{
-		config:    settings,
-		logger:    logger,
-		userModel: data.UserModel{DB: db},
+		config:       settings,
+		logger:       logger,
+		//userModel:    data.UserModel{DB: db},
+		productModel: data.ProductModel{DB: db}, // Initialize productModel
+		reviewModel:  data.ReviewModel{DB: db},  // Initialize reviewModel
 	}
 
 	apiServer := &http.Server{
