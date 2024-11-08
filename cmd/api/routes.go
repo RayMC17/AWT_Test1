@@ -29,5 +29,6 @@ func (a *applicationDependencies) routes() http.Handler {
     router.HandlerFunc(http.MethodGet, "/v1/reviews", a.listReviewsHandler)
     router.HandlerFunc(http.MethodGet, "/v1/products/:id/reviews", a.listReviewsHandler)
 
-    return a.recoverPanic(router)
+//     return a.recoverPanic(router)
+return a.recoverPanic(a.rateLimit(router))
 }

@@ -1,10 +1,9 @@
-// filters.go
-
 package data
 
 import (
-	"errors"
+	//"errors"
 	"fmt"
+	"github.com/RayMC17/AWT_Test1/internal/validator"
 )
 
 // Filters struct holds the filter, sort, and pagination parameters.
@@ -44,17 +43,17 @@ func (f *Filters) SortColumn() string {
 	}
 }
 
-// ValidateSort checks if the sort parameter is valid.
-func (f *Filters) ValidateSort() error {
+// ValidateSort checks if the sort parameter is valid using the Validator.
+func (f *Filters) ValidateSort(v *validator.Validator) {
 	validSorts := map[string]bool{
 		"rating": true,
 		"date":   true,
 	}
 
-	if _, valid := validSorts[f.Sort]; !valid {
-		return errors.New(fmt.Sprintf("invalid sort parameter: %s", f.Sort))
+	// Check if the Sort field is empty or invalid
+	if f.Sort != "" && !validSorts[f.Sort] {
+		v.AddError("sort", fmt.Sprintf("invalid sort parameter: %s", f.Sort))
 	}
-	return nil
 }
 
 // BuildQuery appends sorting, limit, and offset to a base query.

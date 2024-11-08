@@ -191,9 +191,12 @@ func (a *applicationDependencies) listReviewsHandler(w http.ResponseWriter, r *h
 	}
 
 	// Validate sort parameter
-	if err := filters.ValidateSort(); err != nil {
-		a.badRequestResponse(w, r, err)
-		return
+	v := validator.New()
+	filters.ValidateSort(v)
+
+	if !v.IsEmpty() {
+		a.failedValidationResponse(w, r, v.Errors)
+        return
 	}
 
 	// Pass individual parameters instead of `filters`

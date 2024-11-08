@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+
 	//"strconv"
 
 	"github.com/RayMC17/AWT_Test1/internal/data"
@@ -63,11 +64,13 @@ func (a *applicationDependencies) listProductsHandler(w http.ResponseWriter, r *
 	}
 
 	// Check if the sort parameter is valid
-	if err := filters.ValidateSort(); err != nil {
-		a.badRequestResponse(w, r, err)
+	v := validator.New()
+	filters.ValidateSort(v)
+
+	if !v.IsEmpty() {
+		a.failedValidationResponse(w, r, v.Errors)
 		return
 	}
-
 	// Retrieve products based on filters
 	products, err := a.productModel.GetAll(name, category, filters)
 	if err != nil {
@@ -87,10 +90,6 @@ func (a *applicationDependencies) listProductsHandler(w http.ResponseWriter, r *
 		a.serverErrorResponse(w, r, err)
 	}
 }
-
-
-
-
 
 func (a *applicationDependencies) showProductHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := a.readIDParam(r)
